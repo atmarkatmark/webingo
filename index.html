@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html lang="ja">
+<head>
+	<meta id="viewport" name="viewport" content="width=1680; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;" />
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	
+	<link href="./default.css" rel="stylesheet" type="text/css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+$(function(){
+	// 1-75までの数値を保持する配列
+	var num;
+	
+	// 初期値の1-75の数値を配列にセットして、表示を元に戻す
+	function reset(){
+		num = new Array();
+		for (var i = 1; i <= 75; i++)
+		{
+			num.push(i);
+		}
+		$("#center").text(77)
+		for (var i = 1; i <= 75; ++i) {
+			$("#n" + i).removeClass("active");
+		}
+		clearInterval(auto);
+	}
+	
+	// 数ルーレットのためのループ
+	var count;
+	function spin(){
+		playRouletteSound();
+		
+		var count = 0;
+		var prev = 0;
+		var next;
+		var loop = setInterval(function() {
+			count++;
+			
+			// 1回前のルーレット表示を削除
+			$("#n" + prev).removeClass("active");
+			
+			// 次の番号
+			var index = rand(num.length);
+			next = num[index];
+			var center = $("#center");
+			center.text(next);
+			center.removeClass();
+			center.addClass("active");
+			if (0 < next && next < 11) {
+				center.addClass("single");
+			} else if (10 < next && next < 21) {
+				center.addClass("teen");
+			} else if (20 < next && next < 31) {
+				center.addClass("twenty");
+			} else if (30 < next && next < 41) {
+				center.addClass("thirty");
+			} else if (40 < next && next < 51) {
+				center.addClass("forty");
+			} else if (50 < next && next < 61) {
+				center.addClass("fifty");
+			} else if (60 < next && next < 71) {
+				center.addClass("sixty");
+			} else if (70 < next && next < 76) {
+				center.addClass("seventy");
+			}
+			$("#n" + next).addClass("active");
+			
+			// 次のループと終了判定
+			prev = next;
+			if (count > 15)
+			{
+				clearInterval(loop);
+				num.splice(index, 1);
+				playSound();
+			}
+		}, 120);
+	}
+	
+	// 0からnums - 1までの整数を乱数で返す
+	function rand(nums){
+		return Math.floor(Math.random() * nums);
+	}
+	
+	// リセットボタン
+	$("#reset").click(function() {
+		reset();
+	})
+	
+	// 抽選
+	$("#center").click(function() {
+		// 次の数字を選ぶ
+		if (num.length == 0) {
+			return;
+		}
+		spin();
+	});
+	
+	// 表示漏らしを確認する(連打されたとき対策)
+	var patrol = setInterval(function() {
+		for (var i = 1; i <= 75; ++i) {
+			if ($.inArray(i, num) == -1) {
+				$("#n" + i).addClass("active");
+			}
+		}
+	}, 500);
+	
+	// 自動ビンゴ
+	var auto;
+	$("#auto").click(function() {
+		auto = setInterval(function() {
+			if (num.length == 0) {
+				clearInterval(auto);
+			}
+			spin();
+		}, 3500);
+	});
+	
+	// 効果音
+	var playCount = 0, playRouletteCount = 0;
+	function playRouletteSound() {
+		if (playRouletteCount > 0) {
+			$("#roulette-sound").get(0).currentTime = 0;
+		}
+		$("#roulette-sound").get(0).play();
+		++playRouletteCount;
+	}
+	function playSound() {
+		if (playCount > 0) {
+			$("#sound").get(0).currentTime = 0;
+		}
+		$("#sound").get(0).play();
+		++playCount;
+	}
+	
+	// 初回リセット
+	reset();
+});
+	</script>
+	
+	<title>BINGO</title>
+</head>
+<body>
+
+<div style="width:24%; display: inline-block; vertical-align: top; text-align: center;">
+<span id="center">0</span>
+
+<br />
+
+<input type="button" id="reset" value="リセット" style="position: fixed; top: 0; left: 0;" />
+
+<br />
+
+<input type="button" id="auto" value="オートビンゴ" />
+
+</div>
+
+<div style="width: 75%; display: inline-block; vertical-align: top;">
+
+<span id="n1" class="circle single">1</span>
+<span id="n2" class="circle single">2</span>
+<span id="n3" class="circle single">3</span>
+<span id="n4" class="circle single">4</span>
+<span id="n5" class="circle single">5</span>
+<span id="n6" class="circle single">6</span>
+<span id="n7" class="circle single">7</span>
+<span id="n8" class="circle single">8</span>
+<span id="n9" class="circle single">9</span>
+<span id="n10" class="circle single">10</span>
+
+<br />
+
+<span id="n11" class="circle teen">11</span>
+<span id="n12" class="circle teen">12</span>
+<span id="n13" class="circle teen">13</span>
+<span id="n14" class="circle teen">14</span>
+<span id="n15" class="circle teen">15</span>
+<span id="n16" class="circle teen">16</span>
+<span id="n17" class="circle teen">17</span>
+<span id="n18" class="circle teen">18</span>
+<span id="n19" class="circle teen">19</span>
+<span id="n20" class="circle teen">20</span>
+
+<br />
+
+<span id="n21" class="circle twenty">21</span>
+<span id="n22" class="circle twenty">22</span>
+<span id="n23" class="circle twenty">23</span>
+<span id="n24" class="circle twenty">24</span>
+<span id="n25" class="circle twenty">25</span>
+<span id="n26" class="circle twenty">26</span>
+<span id="n27" class="circle twenty">27</span>
+<span id="n28" class="circle twenty">28</span>
+<span id="n29" class="circle twenty">29</span>
+<span id="n30" class="circle twenty">30</span>
+
+<br />
+
+<span id="n31" class="circle thirty">31</span>
+<span id="n32" class="circle thirty">32</span>
+<span id="n33" class="circle thirty">33</span>
+<span id="n34" class="circle thirty">34</span>
+<span id="n35" class="circle thirty">35</span>
+<span id="n36" class="circle thirty">36</span>
+<span id="n37" class="circle thirty">37</span>
+<span id="n38" class="circle thirty">38</span>
+<span id="n39" class="circle thirty">39</span>
+<span id="n40" class="circle thirty">40</span>
+
+<br />
+
+<span id="n41" class="circle forty">41</span>
+<span id="n42" class="circle forty">42</span>
+<span id="n43" class="circle forty">43</span>
+<span id="n44" class="circle forty">44</span>
+<span id="n45" class="circle forty">45</span>
+<span id="n46" class="circle forty">46</span>
+<span id="n47" class="circle forty">47</span>
+<span id="n48" class="circle forty">48</span>
+<span id="n49" class="circle forty">49</span>
+<span id="n50" class="circle forty">50</span>
+
+<br />
+
+<span id="n51" class="circle fifty">51</span>
+<span id="n52" class="circle fifty">52</span>
+<span id="n53" class="circle fifty">53</span>
+<span id="n54" class="circle fifty">54</span>
+<span id="n55" class="circle fifty">55</span>
+<span id="n56" class="circle fifty">56</span>
+<span id="n57" class="circle fifty">57</span>
+<span id="n58" class="circle fifty">58</span>
+<span id="n59" class="circle fifty">59</span>
+<span id="n60" class="circle fifty">60</span>
+
+<br />
+
+<span id="n61" class="circle sixty">61</span>
+<span id="n62" class="circle sixty">62</span>
+<span id="n63" class="circle sixty">63</span>
+<span id="n64" class="circle sixty">64</span>
+<span id="n65" class="circle sixty">65</span>
+<span id="n66" class="circle sixty">66</span>
+<span id="n67" class="circle sixty">67</span>
+<span id="n68" class="circle sixty">68</span>
+<span id="n69" class="circle sixty">69</span>
+<span id="n70" class="circle sixty">70</span>
+
+<br />
+
+<span id="n71" class="circle seventy">71</span>
+<span id="n72" class="circle seventy">72</span>
+<span id="n73" class="circle seventy">73</span>
+<span id="n74" class="circle seventy">74</span>
+<span id="n75" class="circle seventy">75</span>
+
+</div>
+
+<audio id="roulette-sound" preload="auto">
+	<source src="./roulette.mp3" type="audio/mp3">
+</audio>
+<audio id="sound" preload="auto">
+	<source src="./sound.mp3" type="audio/mp3">
+</audio>
+
+</body>

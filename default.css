@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+@media screen, print
+{
+/* äÓñ{ç\ë¢ */
+	#center
+	{
+		display: inline-block;
+		
+		width: 1.2em;
+		height: 1.2em;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;
+		
+		font-family: Sans-Serif;
+		font-size: 18em;
+		text-align: center;
+		vertical-align: middle;
+		color: white;
+		background: blue;
+		
+		// margin: 5em;
+		padding: 0.2em 0.1em 0 0.1em;
+	}
+	
+	.circle
+	{
+		display: inline-block;
+		
+		width: 1.2em;
+		height: 1.2em;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;
+		
+		font-family: Sans-Serif;
+		font-size: 5em;
+		text-align: center;
+		vertical-align: middle;
+		// color: white;
+		// background: #607d8b;
+		
+		margin: 2px;
+		padding: 0.1em 0.1em 0 0.1em;
+	}
+	
+	.single
+	{
+		color: white;
+		background: #eceff1;
+	}
+	.single.active
+	{
+		background: #607d8b !important;
+	}
+	
+	.teen
+	{
+		color: white;
+		background: #fce4ec;
+	}
+	.teen.active
+	{
+		background: #e91e63 !important;
+	}
+	
+	.twenty
+	{
+		color: white;
+		background: #e3f2fd;
+	}
+	.twenty.active
+	{
+		background: #2196f3 !important;
+	}
+	
+	.thirty
+	{
+		color: white;
+		background: #e0f2f1;
+	}
+	.thirty.active
+	{
+		background: #009688 !important;
+	}
+	
+	.forty
+	{
+		color: white;
+		background: #fbe9e7;
+	}
+	.forty.active
+	{
+		background: #ff5722 !important;
+	}
+	
+	.fifty
+	{
+		color: white;
+		background: #efebe9;
+	}
+	.fifty.active
+	{
+		background: #795548 !important;
+	}
+	
+	.sixty
+	{
+		color: white;
+		background: #f3e5f5;
+	}
+	.sixty.active
+	{
+		background: #9c27b0 !important;
+	}
+	
+	.seventy
+	{
+		color: white;
+		background: #f1f8e9;
+	}
+	.seventy.active
+	{
+		background: #8bc34a !important;
+	}
+	
+	input[type="button"]
+	{
+		border: none;
+		font-size: 0.9em;
+		background-color: #607d8b;
+		color: white;
+	}
+}
